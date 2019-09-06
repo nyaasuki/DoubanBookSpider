@@ -10,17 +10,24 @@ try:
     import re
     import time
     import csv
-    import threading
     import sqlite3
     import logging
 except:
     print('[System]正在安装支持库...')
     os.system('pip install SQLAlchemy')
     os.system('pip install sqlite')
-    os.system('pip install threading')
     os.system('pip install csv')
     os.system('pip install requests')
     os.system('pip install logging')
+
+else:
+    os.system('pip3 install SQLAlchemy')
+    os.system('pip3 install sqlite')
+    os.system('pip3 install csv')
+    os.system('pip3 install requests')
+    os.system('pip3 install logging')
+
+finally:
     import requests
     import csv
     import logging

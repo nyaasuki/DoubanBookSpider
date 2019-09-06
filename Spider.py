@@ -7,7 +7,6 @@ class DoubanBook(object):
     def __init__(self):
         self.main_url = 'https://book.douban.com/tag/?view=type&icn=index-sorttags-all'
         self.base_url = 'https://book.douban.com/tag/{}'  # ?start={}&type=T
-        self._lock = threading.Lock()
         self.session = sessionmaker(engine)()
         self.headers = {
             'Referer': 'https://www.baidu.com/',
@@ -20,6 +19,7 @@ class DoubanBook(object):
 
     def get_url(self, tag_name):
         for num in range(0, 10000, 20):
+            time.sleep(0.5)
             url = self.base_url.format(tag_name) + f'?start={num}&type=T'
             print(f'正在获取 TAG：<{tag_name}> 书籍信息', num)
             response = requests.get(url, headers=self.headers)
@@ -46,6 +46,7 @@ class DoubanBook(object):
             #     executor.map(self.get_url, [i for i in tags])
             for i in tags:
                 print(f'[Spider]正在获取<{i}>链接数据.....')
+                time.sleep(0.5)
                 self.get_url(i)
         elif do_not_get_all == '2':
             user_tag = input('请输入标签：')
@@ -64,6 +65,7 @@ class DoubanBook(object):
 
     def get_data(self):
         for row in self.session.query(Douban.url, Douban.tag).all():
+            time.sleep(0.5)
             print(f"正在解析：{row[0]}")
             response = requests.get(row[0], headers=self.headers)
             html = response.content.decode()
@@ -75,10 +77,10 @@ class DoubanBook(object):
                     f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]UNKNOWN URL:{row[0]}")
                 continue
             try:
-                time = re.findall('<span class="pl">出版年:</span> (.*?)<br/>.*?', html)[0]
+                time_temp = re.findall('<span class="pl">出版年:</span> (.*?)<br/>.*?', html)[0]
             except:
                 print(f'《{name}》未发现出版时间！')
-                time = 'N/A'
+                time_temp = 'N/A'
                 logger.warning(
                     f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]CAN'T GET TITLE <time>:{row[0]}")
             try:
@@ -103,7 +105,7 @@ class DoubanBook(object):
                     f"[{time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())}]CAN'T GET TITLE <intro>:{row[0]}")
                 print(f'《{name}》未发现简介！')
                 intro = '无'
-            data = [name, author, time, price, score, row[1], intro]
+            data = [name, author, time_temp, price, score, row[1], intro]
             print(f'正在保存：{name}。')
             self.save_csv(data)
 
