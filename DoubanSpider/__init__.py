@@ -12,6 +12,7 @@ try:
     import csv
     import sqlite3
     import logging
+    import random
 except:
     print('[System]正在安装支持库...')
     os.system('pip install SQLAlchemy')

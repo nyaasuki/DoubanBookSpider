@@ -19,7 +19,7 @@ class DoubanBook(object):
 
     def get_url(self, tag_name):
         for num in range(0, 10000, 20):
-            time.sleep(0.5)
+            time.sleep(sleeptime)
             url = self.base_url.format(tag_name) + f'?start={num}&type=T'
             print(f'正在获取 TAG：<{tag_name}> 书籍信息', num)
             response = requests.get(url, headers=self.headers)
@@ -65,7 +65,7 @@ class DoubanBook(object):
 
     def get_data(self):
         for row in self.session.query(Douban.url, Douban.tag).all():
-            time.sleep(0.5)
+            time.sleep(sleeptime)
             print(f"正在解析：{row[0]}")
             response = requests.get(row[0], headers=self.headers)
             html = response.content.decode()
@@ -125,6 +125,7 @@ class DoubanBook(object):
 
 if __name__ == '__main__':
     logger = logging.getLogger("PAPA")
+    sleeptime = random.randint(0,3)
     with open("results.csv", "a", encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
