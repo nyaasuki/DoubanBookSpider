@@ -20,15 +20,6 @@ except:
     os.system('pip install csv')
     os.system('pip install requests')
     os.system('pip install logging')
-
-else:
-    os.system('pip3 install SQLAlchemy')
-    os.system('pip3 install sqlite')
-    os.system('pip3 install csv')
-    os.system('pip3 install requests')
-    os.system('pip3 install logging')
-
-finally:
     import requests
     import csv
     import logging
