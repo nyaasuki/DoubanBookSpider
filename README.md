@@ -1,4 +1,4 @@
-##安装
+## 安装
 ###环境需求：python3.6+ / pip3
 ####Linux
 ```shell
