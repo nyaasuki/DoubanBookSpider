@@ -1,5 +1,5 @@
 # 安装
-##环境需求：python3.6+ / pip3
+环境需求：python3.6+ / pip3
 ###Linux
 ```shell
 git clone https://github.com/nyaasuki/DoubanBookSpider.git
