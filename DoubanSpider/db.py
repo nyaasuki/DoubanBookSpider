@@ -15,6 +15,10 @@ class Douban(Base):
     def __repr__(self):
         return "<Douban(id='%d', tag='%s',url='%s')>" % (self.id, self.tag, self.url)
 
+class Recording(Base):
+    __tablename__ = 'Recording'
+    id = Column(Integer, primary_key=True)
+    data = Column(Integer, unique=True, nullable=False)
 
 if os.path.isfile('douban.db') is False:
     print('正在创建数据库...')

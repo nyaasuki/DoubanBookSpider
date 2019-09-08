@@ -1,5 +1,5 @@
 from DoubanSpider import *
-from DoubanSpider.db import Douban, engine
+from DoubanSpider.db import Douban, engine, Recording
 from sqlalchemy.orm import sessionmaker
 
 
@@ -51,7 +51,6 @@ class DoubanBook(object):
         elif do_not_get_all == '2':
             user_tag = input('请输入标签：')
             self.get_url(user_tag)
-            self.main()
         else:
             print("[Spider]输入有误，请重新输入！")
             self.get_tags()
@@ -64,7 +63,7 @@ class DoubanBook(object):
     #     self.get_data(books_url, tag_name)
 
     def get_data(self):
-        for row in self.session.query(Douban.url, Douban.tag).all():
+        for row in self.session.query(Douban.url, Douban.tag, Douban.id).all():
             time.sleep(sleeptime)
             print(f"正在解析：{row[0]}")
             response = requests.get(row[0], headers=self.headers)
@@ -115,6 +114,10 @@ class DoubanBook(object):
             writer.writerow(data)
 
     def main(self):
+        rec = self.session.query(Recording.id).all()
+        if not rec:
+            self.session.add(Recording(id=1, data=1))
+            self.session.commit()
         n = self.session.query(Douban.url, Douban.tag).all()
         if not n:
             self.get_tags()
@@ -123,9 +126,14 @@ class DoubanBook(object):
             self.get_data()
 
 
+def url_pool():
+    for row in douban.session.query(Douban.url, Douban.tag).all():
+        yield row
+
+
 if __name__ == '__main__':
     logger = logging.getLogger("PAPA")
-    sleeptime = random.randint(0,3)
+    sleeptime = random.randint(0, 3)
     with open("results.csv", "a", encoding='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
