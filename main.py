@@ -28,7 +28,6 @@ def url_pool():
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger("PAPA")
     sleeptime = random.randint(0, 3)
     with open("results.csv", "a", encoding='utf-8') as f:
         writer = csv.writer(f)

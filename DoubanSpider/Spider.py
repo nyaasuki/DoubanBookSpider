@@ -2,6 +2,8 @@ from DoubanSpider import *
 from DoubanSpider.db import Douban, engine, Recording
 from sqlalchemy.orm import sessionmaker
 
+logger = logging.getLogger("PAPA")
+
 
 class DoubanBook(object):
     def __init__(self):
@@ -108,7 +110,8 @@ class DoubanBook(object):
             print(f'正在保存：{name}。')
             self.save_csv(data)
 
-    def save_csv(self, data):
+    @staticmethod
+    def save_csv(data):
         with open('results.csv', 'a', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(data)
