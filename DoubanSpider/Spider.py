@@ -124,19 +124,3 @@ class DoubanBook(object):
         else:
             print('[Spider]检测到现有TAG数据，开始抓取...')
             self.get_data()
-
-
-def url_pool():
-    for row in douban.session.query(Douban.url, Douban.tag).all():
-        yield row
-
-
-if __name__ == '__main__':
-    logger = logging.getLogger("PAPA")
-    sleeptime = random.randint(0, 3)
-    with open("results.csv", "a", encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime()))
-        writer.writerow(["书名", "作者", "上市时间", "价格", "评分", "书籍分类", "内容简介"])
-    douban = DoubanBook()
-    douban.main()

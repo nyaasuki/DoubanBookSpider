@@ -2,8 +2,30 @@ import csv
 import logging
 import random
 import time
+from cmd import Cmd
 
+from DoubanSpider.db import Douban
 from DoubanSpider.Spider import DoubanBook
+
+
+class SpiderMain(Cmd):
+    def __init__(self):
+        super().__init__()
+        pass
+
+    def do_help(self, arg):
+        pass
+
+    def do_start(self, arg):
+        pass
+
+    def do_tag(self,arg):
+        pass
+
+def url_pool():
+    for row in douban.session.query(Douban.url, Douban.tag).all():
+        yield row
+
 
 if __name__ == '__main__':
     logger = logging.getLogger("PAPA")
