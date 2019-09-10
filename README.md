@@ -4,14 +4,14 @@
 ```shell
 git clone https://github.com/nyaasuki/DoubanBookSpider.git
 cd ./DoubanBookSpider
-python3 Spider.py
+python3 main.py
 ```
 ## Window 
 配置好环境后
 下载并解压https://github.com/nyaasuki/DoubanBookSpider/archive/master.zip
 使用cmd命令运行
 ```DOS
-python path\DoubanBookSpider\Spider.py  #path为文件存放路径
+python path\DoubanBookSpider\main.py  #path为文件存放路径
 ```
 
 或者
