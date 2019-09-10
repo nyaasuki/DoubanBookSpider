@@ -6,22 +6,27 @@ import os
 try:
     from sqlalchemy import create_engine, Column, Integer, String
     from sqlalchemy.ext.declarative import declarative_base
-    import requests
+    import random
     import re
     import time
     import csv
+    import requests
+    import time
     import sqlite3
     import logging
-    import random
 except:
     print('[System]正在安装支持库...')
-    os.system('pip install SQLAlchemy')
-    os.system('pip install sqlite')
-    os.system('pip install csv')
-    os.system('pip install requests')
-    os.system('pip install logging')
-    import requests
-    import csv
-    import logging
+    os.system(r'pip install -r .\DoubanSpider\requirements.txt')
     from sqlalchemy import create_engine, Column, Integer, String
     from sqlalchemy.ext.declarative import declarative_base
+    import random
+    import re
+    import time
+    import csv
+    import requests
+    import time
+    import sqlite3
+    import logging
+
+finally:
+    print('[System]运行库加载完毕！')
