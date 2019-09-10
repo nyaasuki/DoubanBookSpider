@@ -22,4 +22,5 @@ __将已经写好的脚本文件拖拽到当前光标位置，然后敲回车运
 
 
 # 重置程序
-删除DoubanBookSpider目录下的Spider.db即可
+删除DoubanBookSpider目录下的douban.db即可
+
