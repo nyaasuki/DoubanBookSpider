@@ -19,7 +19,6 @@ class SpiderMain(Cmd):
         print('[Help] tag all - 爬取所有标签下的书籍')
         print('[Help] quit  - 退出程序')
 
-
     def do_start(self, arg):
         for row in url_pool():
             douban.get_data(row)
@@ -43,7 +42,8 @@ class SpiderMain(Cmd):
 
 
 def url_pool():
-    if not n:
+    m = douban.session.query(Douban.url, Douban.tag).all()
+    if not m:
         print('[Spider]你需要先获取tag数据!')
     else:
         for row in douban.session.query(Douban.url, Douban.tag, Douban.id).all():
